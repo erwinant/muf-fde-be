@@ -1,8 +1,8 @@
 {
-  "name": "nest-typescript-starter",
+  "name": "muf-fde-be",
   "private": true,
   "version": "1.0.0",
-  "description": "Nest TypeScript starter repository",
+  "description": "Nest Muf BE FDEs",
   "license": "MIT",
   "scripts": {
     "prebuild": "rimraf dist",
@@ -22,7 +22,17 @@
   "dependencies": {
     "@nestjs/common": "^8.1.1",
     "@nestjs/core": "^8.1.1",
+    "@nestjs/jwt": "^8.0.0",
+    "@nestjs/mapped-types": "*",
+    "@nestjs/mongoose": "^9.0.2",
+    "@nestjs/passport": "^8.2.1",
     "@nestjs/platform-express": "^8.1.1",
+    "dotenv": "^16.0.0",
+    "gravatar": "^1.8.2",
+    "joi": "^17.6.0",
+    "mongoose": "^6.2.4",
+    "nest-access-control": "^2.1.0",
+    "passport-jwt": "^4.0.0",
     "reflect-metadata": "^0.1.13",
     "rimraf": "^3.0.2",
     "rxjs": "^7.4.0"
