@@ -34,6 +34,9 @@ export class FormComponent {
   @Prop({ required: true })
   submitable: boolean;
 
+  @Prop({ required: true })
+  title: string;
+
   @Prop([Component])
   components: Component[];
 }
