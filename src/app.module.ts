@@ -7,6 +7,8 @@ import { ConfigService } from './config/config.service';
 import { FormComponentModule } from './form-component/form-component.module';
 import { UserModule } from './user/user.module';
 import { FormComponentController } from './form-component/form-component.controller';
+import { ServeStaticModule } from '@nestjs/serve-static';
+import { join } from 'path';
 
 @Module({
   imports: [MongooseModule.forRootAsync({
@@ -20,7 +22,11 @@ import { FormComponentController } from './form-component/form-component.control
           useUnifiedTopology: true
         } as MongooseModuleAsyncOptions
       )
-    }), FormComponentModule, UserModule],
+    }), FormComponentModule, UserModule,
+    ServeStaticModule.forRoot({
+      serveRoot: '/.well-known/pki-validation',
+      rootPath: join(__dirname, '.well-known/pki-validation'),
+    }),],
   controllers: [AppController, FormComponentController],
   providers: [AppService],
 })

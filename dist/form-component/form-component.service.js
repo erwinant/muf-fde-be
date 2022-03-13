@@ -26,9 +26,7 @@ let FormComponentService = class FormComponentService {
         return createFormComponent.save();
     }
     findAll(criteria = "{}") {
-        console.log(criteria);
         let jsonCriteria = JSON.parse(criteria);
-        console.log(jsonCriteria);
         return this.formComponentModel.find(jsonCriteria).exec();
     }
     findOne(id) {

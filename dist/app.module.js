@@ -16,6 +16,8 @@ const config_service_1 = require("./config/config.service");
 const form_component_module_1 = require("./form-component/form-component.module");
 const user_module_1 = require("./user/user.module");
 const form_component_controller_1 = require("./form-component/form-component.controller");
+const serve_static_1 = require("@nestjs/serve-static");
+const path_1 = require("path");
 let AppModule = class AppModule {
 };
 AppModule = __decorate([
@@ -28,7 +30,11 @@ AppModule = __decorate([
                     useNewUrlParser: true,
                     useUnifiedTopology: true
                 })
-            }), form_component_module_1.FormComponentModule, user_module_1.UserModule],
+            }), form_component_module_1.FormComponentModule, user_module_1.UserModule,
+            serve_static_1.ServeStaticModule.forRoot({
+                serveRoot: '/.well-known/pki-validation',
+                rootPath: (0, path_1.join)(__dirname, '.well-known/pki-validation'),
+            }),],
         controllers: [app_controller_1.AppController, form_component_controller_1.FormComponentController],
         providers: [app_service_1.AppService],
     })
