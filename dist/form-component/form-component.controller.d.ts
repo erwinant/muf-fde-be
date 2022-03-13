@@ -1,3 +1,7 @@
+/// <reference types="mongoose/types/pipelinestage" />
+/// <reference types="mongoose/types/error" />
+/// <reference types="mongoose/types/connection" />
+/// <reference types="mongoose" />
 import { FormComponentService } from './form-component.service';
 import { CreateFormComponentDto } from './dto/create-form-component.dto';
 import { UpdateFormComponentDto } from './dto/update-form-component.dto';
