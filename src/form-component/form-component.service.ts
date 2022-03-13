@@ -16,7 +16,7 @@ export class FormComponentService {
     return createFormComponent.save();
   }
 
-  findAll(criteria:any={}):Promise<FormComponent[]> {
+  findAll(criteria:string="{}"):Promise<FormComponent[]> {
     let jsonCriteria = JSON.parse(criteria);
     return this.formComponentModel.find(jsonCriteria).exec();
   }
