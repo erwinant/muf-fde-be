@@ -18,8 +18,8 @@ const user_entity_1 = require("./entities/user.entity");
 const mongoose_1 = require("mongoose");
 const mongoose_2 = require("@nestjs/mongoose");
 let UserService = class UserService {
-    constructor(userModel) {
-        this.userModel = userModel;
+    constructor(model) {
+        this.model = model;
     }
     create(createUserDto) {
         return 'This action adds a new user';

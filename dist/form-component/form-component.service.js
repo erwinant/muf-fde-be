@@ -18,22 +18,22 @@ const mongoose_1 = require("mongoose");
 const mongoose_2 = require("@nestjs/mongoose");
 const form_component_entity_1 = require("./entities/form-component.entity");
 let FormComponentService = class FormComponentService {
-    constructor(formComponentModel) {
-        this.formComponentModel = formComponentModel;
+    constructor(model) {
+        this.model = model;
     }
     create(createFormComponentDto) {
-        const createFormComponent = new this.formComponentModel(createFormComponentDto);
+        const createFormComponent = new this.model(createFormComponentDto);
         return createFormComponent.save();
     }
     findAll(criteria = "{}") {
         let jsonCriteria = JSON.parse(criteria);
-        return this.formComponentModel.find(jsonCriteria).exec();
+        return this.model.find(jsonCriteria).exec();
     }
     findOne(id) {
-        return this.formComponentModel.findById(id).exec();
+        return this.model.findById(id).exec();
     }
     async update(id, updateFormComponentDto) {
-        let updateObj = await this.formComponentModel.findById(id).exec();
+        let updateObj = await this.model.findById(id).exec();
         updateObj.name = updateFormComponentDto.name;
         updateObj.components = updateFormComponentDto.components;
         return updateObj.save();

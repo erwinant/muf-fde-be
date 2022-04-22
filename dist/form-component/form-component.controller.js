@@ -28,7 +28,7 @@ let FormComponentController = class FormComponentController {
         return this.formComponentService.findAll(criteria);
     }
     findOne(id) {
-        return this.formComponentService.findOne(+id);
+        return this.formComponentService.findOne(id);
     }
     update(id, updateFormComponentDto) {
         return this.formComponentService.update(id, updateFormComponentDto);

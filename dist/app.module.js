@@ -18,24 +18,34 @@ const user_module_1 = require("./user/user.module");
 const form_component_controller_1 = require("./form-component/form-component.controller");
 const serve_static_1 = require("@nestjs/serve-static");
 const path_1 = require("path");
+const regency_module_1 = require("./regency/regency.module");
+const province_module_1 = require("./province/province.module");
+const province_controller_1 = require("./province/province.controller");
+const regency_controller_1 = require("./regency/regency.controller");
 let AppModule = class AppModule {
 };
 AppModule = __decorate([
     (0, common_1.Module)({
-        imports: [mongoose_1.MongooseModule.forRootAsync({
-                imports: [config_module_1.ConfigModule, form_component_module_1.FormComponentModule],
+        imports: [
+            mongoose_1.MongooseModule.forRootAsync({
+                imports: [config_module_1.ConfigModule, form_component_module_1.FormComponentModule, province_module_1.ProvinceModule, regency_module_1.RegencyModule],
                 inject: [config_service_1.ConfigService],
                 useFactory: (configService) => ({
                     uri: configService.get("DB_URL"),
                     useNewUrlParser: true,
                     useUnifiedTopology: true
                 })
-            }), form_component_module_1.FormComponentModule, user_module_1.UserModule,
+            }),
             serve_static_1.ServeStaticModule.forRoot({
                 serveRoot: '/.well-known/pki-validation',
                 rootPath: (0, path_1.join)(__dirname, '.well-known/pki-validation'),
-            }),],
-        controllers: [app_controller_1.AppController, form_component_controller_1.FormComponentController],
+            }),
+            form_component_module_1.FormComponentModule,
+            user_module_1.UserModule,
+            province_module_1.ProvinceModule,
+            regency_module_1.RegencyModule
+        ],
+        controllers: [app_controller_1.AppController, form_component_controller_1.FormComponentController, province_controller_1.ProvinceController, regency_controller_1.RegencyController],
         providers: [app_service_1.AppService],
     })
 ], AppModule);

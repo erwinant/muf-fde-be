@@ -8,25 +8,25 @@ import { FormComponent, FormComponentDocument } from './entities/form-component.
 
 @Injectable()
 export class FormComponentService {
-  constructor(@InjectModel(FormComponent.name) private formComponentModel: Model<FormComponentDocument>){
+  constructor(@InjectModel(FormComponent.name) private model: Model<FormComponentDocument>){
 
   }
   create(createFormComponentDto: CreateFormComponentDto) {
-    const createFormComponent = new this.formComponentModel(createFormComponentDto);
+    const createFormComponent = new this.model(createFormComponentDto);
     return createFormComponent.save();
   }
 
   findAll(criteria:string="{}"):Promise<FormComponent[]> {
     let jsonCriteria = JSON.parse(criteria);
-    return this.formComponentModel.find(jsonCriteria).exec();
+    return this.model.find(jsonCriteria).exec();
   }
 
-  findOne(id: number) :Promise<FormComponent> {
-    return this.formComponentModel.findById(id).exec();
+  findOne(id: string) :Promise<FormComponent> {
+    return this.model.findById(id).exec();
   }
 
   async update(id: string, updateFormComponentDto: UpdateFormComponentDto) {
-    let updateObj = await this.formComponentModel.findById(id).exec() as FormComponentDocument;
+    let updateObj = await this.model.findById(id).exec() as FormComponentDocument;
     updateObj.name = updateFormComponentDto.name;
     updateObj.components = updateFormComponentDto.components;
     return updateObj.save();

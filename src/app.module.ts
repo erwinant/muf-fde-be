@@ -9,25 +9,35 @@ import { UserModule } from './user/user.module';
 import { FormComponentController } from './form-component/form-component.controller';
 import { ServeStaticModule } from '@nestjs/serve-static';
 import { join } from 'path';
+import { RegencyModule } from './regency/regency.module';
+import { ProvinceModule } from './province/province.module';
+import { ProvinceController } from './province/province.controller';
+import { RegencyController } from './regency/regency.controller';
 
 @Module({
-  imports: [MongooseModule.forRootAsync({
-    imports: [ConfigModule, FormComponentModule],
-    inject: [ConfigService],
-    useFactory: (configService: ConfigService) =>
-      (
-        {
-          uri: configService.get("DB_URL"),
-          useNewUrlParser: true,
-          useUnifiedTopology: true
-        } as MongooseModuleAsyncOptions
-      )
-    }), FormComponentModule, UserModule,
+  imports: [
+    MongooseModule.forRootAsync({
+      imports: [ConfigModule, FormComponentModule, ProvinceModule, RegencyModule],
+      inject: [ConfigService],
+      useFactory: (configService: ConfigService) =>
+        (
+          {
+            uri: configService.get("DB_URL"),
+            useNewUrlParser: true,
+            useUnifiedTopology: true
+          } as MongooseModuleAsyncOptions
+        )
+    }),
     ServeStaticModule.forRoot({
       serveRoot: '/.well-known/pki-validation',
       rootPath: join(__dirname, '.well-known/pki-validation'),
-    }),],
-  controllers: [AppController, FormComponentController],
+    }),
+    FormComponentModule,
+    UserModule,
+    ProvinceModule,
+    RegencyModule
+  ],
+  controllers: [AppController, FormComponentController, ProvinceController, RegencyController],
   providers: [AppService],
 })
 export class AppModule {}
