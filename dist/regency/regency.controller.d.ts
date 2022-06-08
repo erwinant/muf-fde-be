@@ -1,12 +1,15 @@
 import { RegencyService } from './regency.service';
-import { CreateRegencyDto } from './dto/create-regency.dto';
-import { UpdateRegencyDto } from './dto/update-regency.dto';
+import { Regency, RegencyDocument } from './entities/regency.entity';
 export declare class RegencyController {
     private readonly regencyService;
     constructor(regencyService: RegencyService);
-    create(createRegencyDto: CreateRegencyDto): string;
-    findAll(): Promise<import("./entities/regency.entity").Regency[]>;
-    findOne(id: string): string;
-    update(id: string, updateRegencyDto: UpdateRegencyDto): string;
-    remove(id: string): string;
+    create(regency: Regency): Promise<RegencyDocument>;
+    findAll(query: any): Promise<(Regency & import("mongoose").Document<any, any, any> & {
+        _id: any;
+    })[]>;
+    findOne(id: string): Promise<Regency & import("mongoose").Document<any, any, any> & {
+        _id: any;
+    }>;
+    update(id: string, regency: Regency): Promise<Regency>;
+    delete(id: string): Promise<Regency>;
 }

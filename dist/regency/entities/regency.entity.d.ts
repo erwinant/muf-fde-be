@@ -7,5 +7,6 @@ export declare class Regency {
     name: string;
     code: string;
     province_code: string;
+    deleted_at: Date;
 }
 export declare const RegencySchema: MongooseSchema<Document<Regency, any, any>, import("mongoose").Model<Document<Regency, any, any>, any, any, any>, any, any>;

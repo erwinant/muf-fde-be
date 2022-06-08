@@ -14,6 +14,7 @@ import { ProvinceModule } from './province/province.module';
 import { ProvinceController } from './province/province.controller';
 import { RegencyController } from './regency/regency.controller';
 
+
 @Module({
   imports: [
     MongooseModule.forRootAsync({

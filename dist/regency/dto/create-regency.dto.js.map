@@ -1,1 +1,1 @@
-{"version":3,"file":"create-regency.dto.js","sourceRoot":"","sources":["../../../src/regency/dto/create-regency.dto.ts"],"names":[],"mappings":";;;AAAA,MAAa,gBAAgB;CAAG;AAAhC,4CAAgC"}
+{"version":3,"file":"create-regency.dto.js","sourceRoot":"","sources":["../../../src/regency/dto/create-regency.dto.ts"],"names":[],"mappings":";;;AAAA,+DAAqD;AAErD,MAAa,gBAAiB,SAAQ,wBAAO;IACzC;QACI,KAAK,EAAE,CAAA;IACX,CAAC;CACJ;AAJD,4CAIC"}

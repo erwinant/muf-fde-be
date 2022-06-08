@@ -1,34 +1,78 @@
 import { Injectable } from '@nestjs/common';
-import { InjectModel } from '@nestjs/mongoose';
-import { Model } from 'mongoose';
-import { CreateProvinceDto } from './dto/create-province.dto';
-import { UpdateProvinceDto } from './dto/update-province.dto';
-import { Province, ProvinceDocument } from './entities/province.entity';
+import { Document } from 'mongoose';
+import { Model, FilterQuery } from 'mongoose';
+import * as moment from 'moment';
 
 @Injectable()
-export class ProvinceService {
-  constructor(@InjectModel(Province.name) private model: Model<T>)
-  {
+export abstract class GenericService<U, T extends Document> {
+  private readonly modelName: string;
 
-  }
-  create(createProvinceDto: CreateProvinceDto) {
-    return 'This action adds a new province';
-  }
-
-  findAll(criteria:string="{}"):Promise<Province[]> {
-    let jsonCriteria = JSON.parse(criteria);
-    return this.model.find(jsonCriteria).populate('regencies').exec();
+  constructor(readonly model: Model<T>) {
+    for (const modelName of Object.keys(model.collection.conn.models)) {
+      if (model.collection.conn.models[modelName] === this.model) {
+        this.modelName = modelName;
+        break;
+      }
+    }
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} province`;
+  async create(input: T): Promise<T> {
+    return await this.model.create(input);
   }
 
-  update(id: number, updateProvinceDto: UpdateProvinceDto) {
-    return `This action updates a #${id} province`;
+  async findAll(conditions: string = "{}", skip = 0, limit = 50, sort = null, populate = null) {
+    try {
+      let jsonCriteria = JSON.parse(conditions);
+      jsonCriteria = {...jsonCriteria, deleted_at:{$exists:false}}
+      let cmd = this.model.find(jsonCriteria as FilterQuery<T>).skip(+skip).limit(+limit);
+      if (sort)
+        cmd = cmd.sort(JSON.parse(sort));
+      if (populate)
+        cmd = cmd.populate(populate);
+      return await cmd.exec();
+    }
+    catch (err) {
+      throw new Error("Error occured while fetching data to database!");
+    }
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} province`;
+  async findOne(id: string) {
+    try {
+      return await this.model.findOne({_id:id,deleted_at:{$exists:false}}).exec();
+    } catch (err) {
+      throw new Error("Error occured while fetching data to database!");
+    }
   }
+
+  async update(id: string, input: U): Promise<U> {
+    try {
+      let obj: U = input;
+      this.deleteProperty(obj, '_id');
+      await this.model.findOneAndUpdate<U>({ _id: id,deleted_at:{$exists:false} }, obj).exec();
+      return await this.model.findOne<U>({ _id: id }).exec();
+    } catch (err) {
+      console.log(err)
+      throw new Error("Error occured while fetching data to database!");
+    }
+  }
+
+  async delete(id: string): Promise<U> {
+    try {
+      await this.model.findOneAndUpdate<U>({ _id: id }, {deleted_at:moment.tz()}).exec();
+      return await this.model.findOne<U>({ _id: id }).exec();
+    } catch (err) {
+      console.log(err)
+      throw new Error("Error occured while fetching data to database!");
+    }
+  }
+
+  deleteProperty(obj: U, deletedKey: string) {
+    for (const key of Object.keys(obj)) {
+      if (typeof obj[key] === deletedKey) {
+        delete obj[key];
+      }
+    }
+    return obj
+  }
+
 }

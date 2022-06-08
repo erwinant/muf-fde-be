@@ -6,7 +6,7 @@ import { Province } from 'src/province/entities/province.entity';
 
 export type RegencyDocument = Regency & Document;
 
-@Schema()
+@Schema({ timestamps: { createdAt: 'created_at',updatedAt: 'updated_at' } })
 export class Regency {
   @Prop({ required: true })
   name: string;
@@ -17,15 +17,18 @@ export class Regency {
   @Prop({ required: true })
   province_code: string;
 
+  @Prop()
+  deleted_at: Date;
+
 }
 const schema = SchemaFactory.createForClass(Regency);
 schema.set('toJSON', ReshapingOptions);
-schema.set('toObject', ReshapingOptions);
 schema.virtual('province', {
-    ref: 'Province',
+    ref: Province.name,
     localField: 'province_code',
     foreignField: 'code',
-    justOne : true
+    justOne:true
 });
+
 
 export const RegencySchema = schema;

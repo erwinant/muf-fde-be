@@ -16,26 +16,12 @@ exports.RegencyService = void 0;
 const common_1 = require("@nestjs/common");
 const mongoose_1 = require("@nestjs/mongoose");
 const mongoose_2 = require("mongoose");
+const generic_service_1 = require("../generic-service");
 const regency_entity_1 = require("./entities/regency.entity");
-let RegencyService = class RegencyService {
+let RegencyService = class RegencyService extends generic_service_1.GenericService {
     constructor(model) {
+        super(model);
         this.model = model;
-    }
-    create(createRegencyDto) {
-        return 'This action adds a new regency';
-    }
-    findAll(criteria = "{}") {
-        let jsonCriteria = JSON.parse(criteria);
-        return this.model.find(jsonCriteria).populate('province').exec();
-    }
-    findOne(id) {
-        return `This action returns a #${id} regency`;
-    }
-    update(id, updateRegencyDto) {
-        return `This action updates a #${id} regency`;
-    }
-    remove(id) {
-        return `This action removes a #${id} regency`;
     }
 };
 RegencyService = __decorate([

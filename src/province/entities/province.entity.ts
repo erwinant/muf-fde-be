@@ -5,13 +5,16 @@ import { ReshapingOptions } from 'src/helper/ReshapingOptions';
 
 export type ProvinceDocument = Province & Document;
 
-@Schema()
+@Schema({ timestamps: { createdAt: 'created_at',updatedAt: 'updated_at' } })
 export class Province {
   @Prop({ required: true })
   name: string;
 
   @Prop({ required: true })
   code: string;
+
+  @Prop()
+  deleted_at: Date;
 }
 
 const schema = SchemaFactory.createForClass(Province);

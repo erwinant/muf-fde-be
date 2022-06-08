@@ -16,26 +16,12 @@ exports.ProvinceService = void 0;
 const common_1 = require("@nestjs/common");
 const mongoose_1 = require("@nestjs/mongoose");
 const mongoose_2 = require("mongoose");
+const generic_service_1 = require("../generic-service");
 const province_entity_1 = require("./entities/province.entity");
-let ProvinceService = class ProvinceService {
+let ProvinceService = class ProvinceService extends generic_service_1.GenericService {
     constructor(model) {
+        super(model);
         this.model = model;
-    }
-    create(createProvinceDto) {
-        return 'This action adds a new province';
-    }
-    findAll(criteria = "{}") {
-        let jsonCriteria = JSON.parse(criteria);
-        return this.model.find(jsonCriteria).populate('regencies').exec();
-    }
-    findOne(id) {
-        return `This action returns a #${id} province`;
-    }
-    update(id, updateProvinceDto) {
-        return `This action updates a #${id} province`;
-    }
-    remove(id) {
-        return `This action removes a #${id} province`;
     }
 };
 ProvinceService = __decorate([

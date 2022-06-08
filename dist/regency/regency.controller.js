@@ -15,40 +15,41 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.RegencyController = void 0;
 const common_1 = require("@nestjs/common");
 const regency_service_1 = require("./regency.service");
-const create_regency_dto_1 = require("./dto/create-regency.dto");
-const update_regency_dto_1 = require("./dto/update-regency.dto");
+const regency_entity_1 = require("./entities/regency.entity");
 let RegencyController = class RegencyController {
     constructor(regencyService) {
         this.regencyService = regencyService;
     }
-    create(createRegencyDto) {
-        return this.regencyService.create(createRegencyDto);
+    create(regency) {
+        return this.regencyService.create(regency);
     }
-    findAll() {
-        return this.regencyService.findAll();
+    async findAll(query) {
+        let { filter, skip = 0, limit = 50, sort = null, populate = null } = query;
+        return await this.regencyService.findAll(filter, skip, limit, sort, populate);
     }
     findOne(id) {
-        return this.regencyService.findOne(+id);
+        return this.regencyService.findOne(id);
     }
-    update(id, updateRegencyDto) {
-        return this.regencyService.update(+id, updateRegencyDto);
+    update(id, regency) {
+        return this.regencyService.update(id, regency);
     }
-    remove(id) {
-        return this.regencyService.remove(+id);
+    delete(id) {
+        return this.regencyService.delete(id);
     }
 };
 __decorate([
     (0, common_1.Post)(),
     __param(0, (0, common_1.Body)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [create_regency_dto_1.CreateRegencyDto]),
+    __metadata("design:paramtypes", [regency_entity_1.Regency]),
     __metadata("design:returntype", void 0)
 ], RegencyController.prototype, "create", null);
 __decorate([
     (0, common_1.Get)(),
+    __param(0, (0, common_1.Query)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", []),
-    __metadata("design:returntype", void 0)
+    __metadata("design:paramtypes", [Object]),
+    __metadata("design:returntype", Promise)
 ], RegencyController.prototype, "findAll", null);
 __decorate([
     (0, common_1.Get)(':id'),
@@ -62,7 +63,7 @@ __decorate([
     __param(0, (0, common_1.Param)('id')),
     __param(1, (0, common_1.Body)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [String, update_regency_dto_1.UpdateRegencyDto]),
+    __metadata("design:paramtypes", [String, regency_entity_1.Regency]),
     __metadata("design:returntype", void 0)
 ], RegencyController.prototype, "update", null);
 __decorate([
@@ -71,7 +72,7 @@ __decorate([
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [String]),
     __metadata("design:returntype", void 0)
-], RegencyController.prototype, "remove", null);
+], RegencyController.prototype, "delete", null);
 RegencyController = __decorate([
     (0, common_1.Controller)('regency'),
     __metadata("design:paramtypes", [regency_service_1.RegencyService])

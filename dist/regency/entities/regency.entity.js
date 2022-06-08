@@ -27,15 +27,18 @@ __decorate([
     (0, mongoose_1.Prop)({ required: true }),
     __metadata("design:type", String)
 ], Regency.prototype, "province_code", void 0);
+__decorate([
+    (0, mongoose_1.Prop)(),
+    __metadata("design:type", Date)
+], Regency.prototype, "deleted_at", void 0);
 Regency = __decorate([
-    (0, mongoose_1.Schema)()
+    (0, mongoose_1.Schema)({ timestamps: { createdAt: 'created_at', updatedAt: 'updated_at' } })
 ], Regency);
 exports.Regency = Regency;
 const schema = mongoose_1.SchemaFactory.createForClass(Regency);
 schema.set('toJSON', ReshapingOptions_1.ReshapingOptions);
-schema.set('toObject', ReshapingOptions_1.ReshapingOptions);
 schema.virtual('province', {
-    ref: 'Province',
+    ref: province_entity_1.Province.name,
     localField: 'province_code',
     foreignField: 'code',
     justOne: true

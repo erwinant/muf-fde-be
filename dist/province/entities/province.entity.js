@@ -22,8 +22,12 @@ __decorate([
     (0, mongoose_1.Prop)({ required: true }),
     __metadata("design:type", String)
 ], Province.prototype, "code", void 0);
+__decorate([
+    (0, mongoose_1.Prop)(),
+    __metadata("design:type", Date)
+], Province.prototype, "deleted_at", void 0);
 Province = __decorate([
-    (0, mongoose_1.Schema)()
+    (0, mongoose_1.Schema)({ timestamps: { createdAt: 'created_at', updatedAt: 'updated_at' } })
 ], Province);
 exports.Province = Province;
 const schema = mongoose_1.SchemaFactory.createForClass(Province);

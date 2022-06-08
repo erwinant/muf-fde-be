@@ -6,5 +6,6 @@ export declare type ProvinceDocument = Province & Document;
 export declare class Province {
     name: string;
     code: string;
+    deleted_at: Date;
 }
 export declare const ProvinceSchema: import("mongoose").Schema<Document<Province, any, any>, import("mongoose").Model<Document<Province, any, any>, any, any, any>, any, any>;

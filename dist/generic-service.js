@@ -8,40 +8,81 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-var __param = (this && this.__param) || function (paramIndex, decorator) {
-    return function (target, key) { decorator(target, key, paramIndex); }
-};
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.ProvinceService = void 0;
+exports.GenericService = void 0;
 const common_1 = require("@nestjs/common");
-const mongoose_1 = require("@nestjs/mongoose");
-const mongoose_2 = require("mongoose");
-const province_entity_1 = require("./entities/province.entity");
-let ProvinceService = class ProvinceService {
+const mongoose_1 = require("mongoose");
+const moment = require("moment");
+let GenericService = class GenericService {
     constructor(model) {
         this.model = model;
+        for (const modelName of Object.keys(model.collection.conn.models)) {
+            if (model.collection.conn.models[modelName] === this.model) {
+                this.modelName = modelName;
+                break;
+            }
+        }
     }
-    create(createProvinceDto) {
-        return 'This action adds a new province';
+    async create(input) {
+        return await this.model.create(input);
     }
-    findAll(criteria = "{}") {
-        let jsonCriteria = JSON.parse(criteria);
-        return this.model.find(jsonCriteria).populate('regencies').exec();
+    async findAll(conditions = "{}", skip = 0, limit = 50, sort = null, populate = null) {
+        try {
+            let jsonCriteria = JSON.parse(conditions);
+            jsonCriteria = Object.assign(Object.assign({}, jsonCriteria), { deleted_at: { $exists: false } });
+            let cmd = this.model.find(jsonCriteria).skip(+skip).limit(+limit);
+            if (sort)
+                cmd = cmd.sort(JSON.parse(sort));
+            if (populate)
+                cmd = cmd.populate(populate);
+            return await cmd.exec();
+        }
+        catch (err) {
+            throw new Error("Error occured while fetching data to database!");
+        }
     }
-    findOne(id) {
-        return `This action returns a #${id} province`;
+    async findOne(id) {
+        try {
+            return await this.model.findOne({ _id: id, deleted_at: { $exists: false } }).exec();
+        }
+        catch (err) {
+            throw new Error("Error occured while fetching data to database!");
+        }
     }
-    update(id, updateProvinceDto) {
-        return `This action updates a #${id} province`;
+    async update(id, input) {
+        try {
+            let obj = input;
+            this.deleteProperty(obj, '_id');
+            await this.model.findOneAndUpdate({ _id: id, deleted_at: { $exists: false } }, obj).exec();
+            return await this.model.findOne({ _id: id }).exec();
+        }
+        catch (err) {
+            console.log(err);
+            throw new Error("Error occured while fetching data to database!");
+        }
     }
-    remove(id) {
-        return `This action removes a #${id} province`;
+    async delete(id) {
+        try {
+            await this.model.findOneAndUpdate({ _id: id }, { deleted_at: moment.tz() }).exec();
+            return await this.model.findOne({ _id: id }).exec();
+        }
+        catch (err) {
+            console.log(err);
+            throw new Error("Error occured while fetching data to database!");
+        }
+    }
+    deleteProperty(obj, deletedKey) {
+        for (const key of Object.keys(obj)) {
+            if (typeof obj[key] === deletedKey) {
+                delete obj[key];
+            }
+        }
+        return obj;
     }
 };
-ProvinceService = __decorate([
+GenericService = __decorate([
     (0, common_1.Injectable)(),
-    __param(0, (0, mongoose_1.InjectModel)(province_entity_1.Province.name)),
-    __metadata("design:paramtypes", [mongoose_2.Model])
-], ProvinceService);
-exports.ProvinceService = ProvinceService;
+    __metadata("design:paramtypes", [mongoose_1.Model])
+], GenericService);
+exports.GenericService = GenericService;
 //# sourceMappingURL=generic-service.js.map

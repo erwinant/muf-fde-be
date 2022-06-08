@@ -15,40 +15,41 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.ProvinceController = void 0;
 const common_1 = require("@nestjs/common");
 const province_service_1 = require("./province.service");
-const create_province_dto_1 = require("./dto/create-province.dto");
-const update_province_dto_1 = require("./dto/update-province.dto");
+const province_entity_1 = require("./entities/province.entity");
 let ProvinceController = class ProvinceController {
     constructor(provinceService) {
         this.provinceService = provinceService;
     }
-    create(createProvinceDto) {
-        return this.provinceService.create(createProvinceDto);
+    create(province) {
+        return this.provinceService.create(province);
     }
-    findAll() {
-        return this.provinceService.findAll();
+    async findAll(query) {
+        let { filter, skip = 0, limit = 50, sort = null, populate = null } = query;
+        return await this.provinceService.findAll(filter, skip, limit, sort, populate);
     }
     findOne(id) {
-        return this.provinceService.findOne(+id);
+        return this.provinceService.findOne(id);
     }
-    update(id, updateProvinceDto) {
-        return this.provinceService.update(+id, updateProvinceDto);
+    update(id, province) {
+        return this.provinceService.update(id, province);
     }
-    remove(id) {
-        return this.provinceService.remove(+id);
+    delete(id) {
+        return this.provinceService.delete(id);
     }
 };
 __decorate([
     (0, common_1.Post)(),
     __param(0, (0, common_1.Body)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [create_province_dto_1.CreateProvinceDto]),
+    __metadata("design:paramtypes", [province_entity_1.Province]),
     __metadata("design:returntype", void 0)
 ], ProvinceController.prototype, "create", null);
 __decorate([
     (0, common_1.Get)(),
+    __param(0, (0, common_1.Query)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", []),
-    __metadata("design:returntype", void 0)
+    __metadata("design:paramtypes", [Object]),
+    __metadata("design:returntype", Promise)
 ], ProvinceController.prototype, "findAll", null);
 __decorate([
     (0, common_1.Get)(':id'),
@@ -62,7 +63,7 @@ __decorate([
     __param(0, (0, common_1.Param)('id')),
     __param(1, (0, common_1.Body)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [String, update_province_dto_1.UpdateProvinceDto]),
+    __metadata("design:paramtypes", [String, province_entity_1.Province]),
     __metadata("design:returntype", void 0)
 ], ProvinceController.prototype, "update", null);
 __decorate([
@@ -71,7 +72,7 @@ __decorate([
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [String]),
     __metadata("design:returntype", void 0)
-], ProvinceController.prototype, "remove", null);
+], ProvinceController.prototype, "delete", null);
 ProvinceController = __decorate([
     (0, common_1.Controller)('province'),
     __metadata("design:paramtypes", [province_service_1.ProvinceService])

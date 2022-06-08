@@ -20,6 +20,7 @@
     "test:e2e": "jest --config ./test/jest-e2e.json"
   },
   "dependencies": {
+    "@ccmos/nestjs-moment": "^0.1.0",
     "@nestjs/common": "^8.1.1",
     "@nestjs/core": "^8.1.1",
     "@nestjs/jwt": "^8.0.0",
@@ -28,9 +29,12 @@
     "@nestjs/passport": "^8.2.1",
     "@nestjs/platform-express": "^8.1.1",
     "@nestjs/serve-static": "^2.2.2",
+    "class-transformer": "^0.5.1",
     "dotenv": "^16.0.0",
     "gravatar": "^1.8.2",
     "joi": "^17.6.0",
+    "moment": "^2.29.3",
+    "moment-timezone": "^0.5.34",
     "mongoose": "^6.2.4",
     "nest-access-control": "^2.1.0",
     "passport-jwt": "^4.0.0",

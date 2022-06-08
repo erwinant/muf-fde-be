@@ -12,11 +12,17 @@ const regency_service_1 = require("./regency.service");
 const regency_controller_1 = require("./regency.controller");
 const mongoose_1 = require("@nestjs/mongoose");
 const regency_entity_1 = require("./entities/regency.entity");
+const nestjs_moment_1 = require("@ccmos/nestjs-moment");
 let RegencyModule = class RegencyModule {
 };
 RegencyModule = __decorate([
     (0, common_1.Module)({
-        imports: [mongoose_1.MongooseModule.forFeature([{ name: 'Regency', schema: regency_entity_1.RegencySchema }])],
+        imports: [
+            mongoose_1.MongooseModule.forFeature([{ name: regency_entity_1.Regency.name, schema: regency_entity_1.RegencySchema }]),
+            nestjs_moment_1.MomentModule.forRoot({
+                tz: 'Asia/Jakarta',
+            })
+        ],
         controllers: [regency_controller_1.RegencyController],
         providers: [regency_service_1.RegencyService],
         exports: [regency_service_1.RegencyService]
