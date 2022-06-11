@@ -1,20 +1,19 @@
 
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { Document } from 'mongoose';
+import { BaseModel } from 'src/base-model';
 import { ReshapingOptions } from 'src/helper/ReshapingOptions';
 
 export type ProvinceDocument = Province & Document;
 
-@Schema({ timestamps: { createdAt: 'created_at',updatedAt: 'updated_at' } })
-export class Province {
+@Schema({})
+export class Province extends BaseModel {
   @Prop({ required: true })
   name: string;
 
   @Prop({ required: true })
   code: string;
 
-  @Prop()
-  deleted_at: Date;
 }
 
 const schema = SchemaFactory.createForClass(Province);

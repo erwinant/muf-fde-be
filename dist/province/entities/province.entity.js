@@ -11,8 +11,9 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.ProvinceSchema = exports.Province = void 0;
 const mongoose_1 = require("@nestjs/mongoose");
+const base_model_1 = require("../../base-model");
 const ReshapingOptions_1 = require("../../helper/ReshapingOptions");
-let Province = class Province {
+let Province = class Province extends base_model_1.BaseModel {
 };
 __decorate([
     (0, mongoose_1.Prop)({ required: true }),
@@ -22,12 +23,8 @@ __decorate([
     (0, mongoose_1.Prop)({ required: true }),
     __metadata("design:type", String)
 ], Province.prototype, "code", void 0);
-__decorate([
-    (0, mongoose_1.Prop)(),
-    __metadata("design:type", Date)
-], Province.prototype, "deleted_at", void 0);
 Province = __decorate([
-    (0, mongoose_1.Schema)({ timestamps: { createdAt: 'created_at', updatedAt: 'updated_at' } })
+    (0, mongoose_1.Schema)({})
 ], Province);
 exports.Province = Province;
 const schema = mongoose_1.SchemaFactory.createForClass(Province);

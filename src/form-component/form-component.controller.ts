@@ -1,15 +1,16 @@
 import { Controller, Get, Post, Body, Patch, Param, Delete, Query } from '@nestjs/common';
+import { FormComponent, FormComponentDocument } from './entities/form-component.entity';
 import { FormComponentService } from './form-component.service';
-import { CreateFormComponentDto } from './dto/create-form-component.dto';
-import { UpdateFormComponentDto } from './dto/update-form-component.dto';
+// import { CreateFormComponentDto } from './dto/create-form-component.dto';
+// import { UpdateFormComponentDto } from './dto/update-form-component.dto';
 
 @Controller('form-component')
 export class FormComponentController {
   constructor(private readonly formComponentService: FormComponentService) {}
 
   @Post()
-  create(@Body() createFormComponentDto: CreateFormComponentDto) {
-    return this.formComponentService.create(createFormComponentDto);
+  create(@Body() formComponent: FormComponent) {
+    return this.formComponentService.create(formComponent as FormComponentDocument);
   }
 
   @Get()
@@ -23,12 +24,12 @@ export class FormComponentController {
   }
 
   @Patch(':id')
-  update(@Param('id') id: string, @Body() updateFormComponentDto: UpdateFormComponentDto) {
-    return this.formComponentService.update(id, updateFormComponentDto);
+  update(@Param('id') id: string, @Body() formComponent: FormComponent) {
+    return this.formComponentService.update(id, formComponent as FormComponentDocument);
   }
 
   @Delete(':id')
   remove(@Param('id') id: string) {
-    return this.formComponentService.remove(+id);
+    return this.formComponentService.delete(id);
   }
 }

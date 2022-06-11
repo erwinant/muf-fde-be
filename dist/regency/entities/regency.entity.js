@@ -11,9 +11,10 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.RegencySchema = exports.Regency = void 0;
 const mongoose_1 = require("@nestjs/mongoose");
+const base_model_1 = require("../../base-model");
 const ReshapingOptions_1 = require("../../helper/ReshapingOptions");
 const province_entity_1 = require("../../province/entities/province.entity");
-let Regency = class Regency {
+let Regency = class Regency extends base_model_1.BaseModel {
 };
 __decorate([
     (0, mongoose_1.Prop)({ required: true }),
@@ -32,7 +33,7 @@ __decorate([
     __metadata("design:type", Date)
 ], Regency.prototype, "deleted_at", void 0);
 Regency = __decorate([
-    (0, mongoose_1.Schema)({ timestamps: { createdAt: 'created_at', updatedAt: 'updated_at' } })
+    (0, mongoose_1.Schema)({})
 ], Regency);
 exports.Regency = Regency;
 const schema = mongoose_1.SchemaFactory.createForClass(Regency);

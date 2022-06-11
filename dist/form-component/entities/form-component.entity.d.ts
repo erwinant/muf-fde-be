@@ -2,6 +2,7 @@
 /// <reference types="mongoose/types/error" />
 /// <reference types="mongoose/types/connection" />
 import { Document } from 'mongoose';
+import { BaseModel } from 'src/base-model';
 export declare type FormComponentDocument = FormComponent & Document;
 export declare class Validation {
     name: string;
@@ -22,7 +23,7 @@ export declare class Component {
     default_value?: string;
     options?: OptionMember[];
 }
-export declare class FormComponent {
+export declare class FormComponent extends BaseModel {
     name: string;
     submitable: boolean;
     title: string;

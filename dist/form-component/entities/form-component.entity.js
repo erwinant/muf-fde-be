@@ -11,6 +11,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.FormComponentSchema = exports.FormComponent = exports.Component = exports.OptionMember = exports.Validation = void 0;
 const mongoose_1 = require("@nestjs/mongoose");
+const base_model_1 = require("../../base-model");
 class Validation {
 }
 exports.Validation = Validation;
@@ -20,7 +21,7 @@ exports.OptionMember = OptionMember;
 class Component {
 }
 exports.Component = Component;
-let FormComponent = class FormComponent {
+let FormComponent = class FormComponent extends base_model_1.BaseModel {
 };
 __decorate([
     (0, mongoose_1.Prop)({ required: true }),
@@ -39,7 +40,7 @@ __decorate([
     __metadata("design:type", Array)
 ], FormComponent.prototype, "components", void 0);
 FormComponent = __decorate([
-    (0, mongoose_1.Schema)()
+    (0, mongoose_1.Schema)({})
 ], FormComponent);
 exports.FormComponent = FormComponent;
 exports.FormComponentSchema = mongoose_1.SchemaFactory.createForClass(FormComponent);

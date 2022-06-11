@@ -2,8 +2,9 @@
 /// <reference types="mongoose/types/error" />
 /// <reference types="mongoose/types/connection" />
 import { Document, Schema as MongooseSchema } from 'mongoose';
+import { BaseModel } from 'src/base-model';
 export declare type RegencyDocument = Regency & Document;
-export declare class Regency {
+export declare class Regency extends BaseModel {
     name: string;
     code: string;
     province_code: string;

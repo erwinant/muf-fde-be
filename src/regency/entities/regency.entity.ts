@@ -1,13 +1,14 @@
 
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { Document, Schema as MongooseSchema } from 'mongoose';
+import { BaseModel } from 'src/base-model';
 import { ReshapingOptions } from 'src/helper/ReshapingOptions';
 import { Province } from 'src/province/entities/province.entity';
 
 export type RegencyDocument = Regency & Document;
 
-@Schema({ timestamps: { createdAt: 'created_at',updatedAt: 'updated_at' } })
-export class Regency {
+@Schema({})
+export class Regency extends BaseModel {
   @Prop({ required: true })
   name: string;
 

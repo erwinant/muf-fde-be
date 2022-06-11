@@ -1,6 +1,7 @@
 
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { Document } from 'mongoose';
+import { BaseModel } from 'src/base-model';
 
 export type FormComponentDocument = FormComponent & Document;
 
@@ -26,8 +27,8 @@ export class Component {
   options?:OptionMember[];
 }
 
-@Schema()
-export class FormComponent {
+@Schema({})
+export class FormComponent extends BaseModel {
   @Prop({ required: true })
   name: string;
 

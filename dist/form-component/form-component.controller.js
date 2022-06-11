@@ -14,15 +14,14 @@ var __param = (this && this.__param) || function (paramIndex, decorator) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.FormComponentController = void 0;
 const common_1 = require("@nestjs/common");
+const form_component_entity_1 = require("./entities/form-component.entity");
 const form_component_service_1 = require("./form-component.service");
-const create_form_component_dto_1 = require("./dto/create-form-component.dto");
-const update_form_component_dto_1 = require("./dto/update-form-component.dto");
 let FormComponentController = class FormComponentController {
     constructor(formComponentService) {
         this.formComponentService = formComponentService;
     }
-    create(createFormComponentDto) {
-        return this.formComponentService.create(createFormComponentDto);
+    create(formComponent) {
+        return this.formComponentService.create(formComponent);
     }
     findAll(criteria) {
         return this.formComponentService.findAll(criteria);
@@ -30,18 +29,18 @@ let FormComponentController = class FormComponentController {
     findOne(id) {
         return this.formComponentService.findOne(id);
     }
-    update(id, updateFormComponentDto) {
-        return this.formComponentService.update(id, updateFormComponentDto);
+    update(id, formComponent) {
+        return this.formComponentService.update(id, formComponent);
     }
     remove(id) {
-        return this.formComponentService.remove(+id);
+        return this.formComponentService.delete(id);
     }
 };
 __decorate([
     (0, common_1.Post)(),
     __param(0, (0, common_1.Body)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [create_form_component_dto_1.CreateFormComponentDto]),
+    __metadata("design:paramtypes", [form_component_entity_1.FormComponent]),
     __metadata("design:returntype", void 0)
 ], FormComponentController.prototype, "create", null);
 __decorate([
@@ -63,7 +62,7 @@ __decorate([
     __param(0, (0, common_1.Param)('id')),
     __param(1, (0, common_1.Body)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [String, update_form_component_dto_1.UpdateFormComponentDto]),
+    __metadata("design:paramtypes", [String, form_component_entity_1.FormComponent]),
     __metadata("design:returntype", void 0)
 ], FormComponentController.prototype, "update", null);
 __decorate([
