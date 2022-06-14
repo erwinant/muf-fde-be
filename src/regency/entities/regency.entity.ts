@@ -1,9 +1,9 @@
 
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { Document, Schema as MongooseSchema } from 'mongoose';
-import { BaseModel } from 'src/base-model';
-import { ReshapingOptions } from 'src/helper/ReshapingOptions';
-import { Province } from 'src/province/entities/province.entity';
+import { BaseModel } from './../../base-model';
+import { ReshapingOptions } from './../../helper/ReshapingOptions';
+import { Province } from './../../province/entities/province.entity';
 
 export type RegencyDocument = Regency & Document;
 

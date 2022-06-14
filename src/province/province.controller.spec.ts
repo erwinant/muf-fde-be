@@ -1,4 +1,6 @@
+import { getModelToken } from '@nestjs/mongoose';
 import { Test, TestingModule } from '@nestjs/testing';
+import { Province } from './entities/province.entity';
 import { ProvinceController } from './province.controller';
 import { ProvinceService } from './province.service';
 
@@ -8,7 +10,7 @@ describe('ProvinceController', () => {
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
       controllers: [ProvinceController],
-      providers: [ProvinceService],
+      providers: [ProvinceService, { provide: getModelToken(Province.name), useValue: jest.fn() }],
     }).compile();
 
     controller = module.get<ProvinceController>(ProvinceController);

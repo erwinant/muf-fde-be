@@ -1,8 +1,8 @@
 
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { Document } from 'mongoose';
-import { BaseModel } from 'src/base-model';
-import { ReshapingOptions } from 'src/helper/ReshapingOptions';
+import { BaseModel } from './../../base-model';
+import { ReshapingOptions } from './../../helper/ReshapingOptions';
 
 export type ProvinceDocument = Province & Document;
 

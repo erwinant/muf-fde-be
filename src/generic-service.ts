@@ -7,13 +7,16 @@ import * as moment from 'moment';
 export abstract class GenericService<U, T extends Document> {
   private readonly modelName: string;
 
+  // constructor(readonly model: Model<T>) {
+  //   for (const modelName of Object.keys(model.collection.conn.models)) {
+  //     if (model.collection.conn.models[modelName] === this.model) {
+  //       this.modelName = modelName;
+  //       break;
+  //     }
+  //   }
+  // }
   constructor(readonly model: Model<T>) {
-    for (const modelName of Object.keys(model.collection.conn.models)) {
-      if (model.collection.conn.models[modelName] === this.model) {
-        this.modelName = modelName;
-        break;
-      }
-    }
+    this.modelName = model.name;
   }
 
   async create(input: T): Promise<T> {

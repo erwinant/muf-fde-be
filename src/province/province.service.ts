@@ -1,9 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
-import { GenericService } from 'src/generic-service';
-import { CreateProvinceDto } from './dto/create-province.dto';
-import { UpdateProvinceDto } from './dto/update-province.dto';
+import { GenericService } from './../generic-service';
 import { Province, ProvinceDocument } from './entities/province.entity';
 
 @Injectable()

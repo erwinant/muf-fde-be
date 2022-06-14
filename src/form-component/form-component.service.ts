@@ -1,10 +1,8 @@
 import { Injectable } from '@nestjs/common';
 import { Model } from 'mongoose';
 import { InjectModel } from '@nestjs/mongoose';
-// import { CreateFormComponentDto } from './dto/create-form-component.dto';
-// import { UpdateFormComponentDto } from './dto/update-form-component.dto';
 import { FormComponent, FormComponentDocument } from './entities/form-component.entity';
-import { GenericService } from 'src/generic-service';
+import { GenericService } from './../generic-service';
 
 
 @Injectable()
