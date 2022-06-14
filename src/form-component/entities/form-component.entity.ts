@@ -1,7 +1,7 @@
 
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { Document } from 'mongoose';
-import { BaseModel } from 'src/base-model';
+import { BaseModel } from './../../base-model';
 
 export type FormComponentDocument = FormComponent & Document;
 
